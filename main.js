@@ -34,3 +34,57 @@ function speak()
     var utterThis = new SpeechSynthesisUtterance(speak_data_1 + speak_data_2);
     synth.speak(utterThis);
 }
+
+function check()
+{
+  img = document.getElementById('captured_image');
+  classifier.classify(img, gotResult);
+}
+
+function gotResult(error, results)
+{
+  if (error)
+  {
+    console.error(error);
+  }
+
+  else 
+  {
+    console.log(results);
+    document.getElementById("result_hand").innerHTML = results[0].label;
+    document.getElementById("result_hand2").innerHTML = results[1].label;
+    prediction_1 = results[0].label;
+    prediction_2 = results[1].label;
+    speak();
+    if (results[0].label == "ok hand")
+    {
+      document.getElementById("update_emoji").innerHTML = "&#128076;";
+    }
+
+    if (results[0].label == "folded hands")
+    {
+      document.getElementById("update_emoji").innerHTML = "&#x1f64f;";
+    }
+
+    if (results[0].label == "victory hand")
+    {
+      document.getElementById("update_emoji").innerHTML = "&#9996;";
+    }
+
+    if (results[1].label == "ok hand")
+    {
+      document.getElementById("update_emoji2").innerHTML = "&#128076;";
+    }
+
+    if (results[1].label == "folded hands")
+    {
+      document.getElementById("update_emoji2").innerHTML = "&#x1f64f;";
+    }
+
+    if (results[1].label == "victory hand")
+    {
+      document.getElementById("update_emoji2").innerHTML = "&#9996;";
+    }
+
+  }
+}
